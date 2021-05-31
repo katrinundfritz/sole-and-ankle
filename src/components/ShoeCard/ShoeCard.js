@@ -40,11 +40,13 @@ const ShoeCard = ({
         <Spacer size={12} />
         <Row>
           <Name>{name}</Name>
-          <Price>{formatPrice(price)}</Price>
+          <Price onSale={!!salePrice}>{formatPrice(price)}</Price>
         </Row>
         <Row>
           <ColorInfo>{pluralize('Color', numOfColors)}</ColorInfo>
+          {salePrice && <SalePrice>{formatPrice(salePrice)}</SalePrice>}
         </Row>
+        {variant !== 'default' && <Flag color={variant === 'new-release' ? COLORS.secondary : COLORS.primary }>{variant === 'new-release' ? 'Just Released!' : 'Sale'}</Flag>}
       </Wrapper>
     </Link>
   );
@@ -53,18 +55,38 @@ const ShoeCard = ({
 const Link = styled.a`
   text-decoration: none;
   color: inherit;
+  flex: 1;
+  min-width: 340px;
+  position: relative;
 `;
 
 const Wrapper = styled.article``;
 
+const Flag = styled.div`
+  position: absolute;
+  top: 12px;
+  right: 0;
+  background-color: ${props => props.color};
+  color: white;
+  padding: 7px 10px 9px 10px;
+  margin-right: -4px;
+`
+
 const ImageWrapper = styled.div`
   position: relative;
+  border-radius: 16px 16px 4px 4px;
+  overflow: hidden;
 `;
 
-const Image = styled.img``;
+const Image = styled.img`
+  width: 100%;
+  display: block;
+`;
 
 const Row = styled.div`
   font-size: 1rem;
+  display: flex;
+  justify-content: space-between;
 `;
 
 const Name = styled.h3`
@@ -72,7 +94,11 @@ const Name = styled.h3`
   color: ${COLORS.gray[900]};
 `;
 
-const Price = styled.span``;
+const Price = styled.span`
+  font-weight: ${WEIGHTS.normal};
+  color: ${props => props.onSale ? COLORS.gray[700] : 'inherit'};
+  text-decoration: ${props => props.onSale ? 'line-through' : 'inherit'};
+`;
 
 const ColorInfo = styled.p`
   color: ${COLORS.gray[700]};
