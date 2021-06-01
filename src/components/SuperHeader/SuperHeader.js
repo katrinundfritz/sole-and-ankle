@@ -29,8 +29,8 @@ const Wrapper = styled.div`
   display: flex;
   height: 40px;
   align-items: center;
-  padding: 12px 32px;
-  gap: 32px;
+  padding: 0 32px;
+  gap: 24px;
 `;
 
 const MarketingMessage = styled.span`

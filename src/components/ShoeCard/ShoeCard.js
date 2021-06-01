@@ -46,7 +46,8 @@ const ShoeCard = ({
           <ColorInfo>{pluralize('Color', numOfColors)}</ColorInfo>
           {salePrice && <SalePrice>{formatPrice(salePrice)}</SalePrice>}
         </Row>
-        {variant !== 'default' && <Flag color={variant === 'new-release' ? COLORS.secondary : COLORS.primary }>{variant === 'new-release' ? 'Just Released!' : 'Sale'}</Flag>}
+        {variant !== 'on-sale' && <SaleFlag>Sale</SaleFlag>}
+        {variant !== 'new-release' && <NewReleaseFlag>Just released!</NewReleaseFlag>}
       </Wrapper>
     </Link>
   );
@@ -56,7 +57,7 @@ const Link = styled.a`
   text-decoration: none;
   color: inherit;
   flex: 1;
-  min-width: 340px;
+  min-width: 275px;
   position: relative;
 `;
 
@@ -70,6 +71,15 @@ const Flag = styled.div`
   color: white;
   padding: 7px 10px 9px 10px;
   margin-right: -4px;
+  font-size: ${14/16}rem;
+`
+
+const SaleFlag = styled(Flag)`
+  background-color: ${COLORS.primary};
+`
+
+const NewReleaseFlag = styled(Flag)`
+  background-color: ${COLORS.secondary};
 `
 
 const ImageWrapper = styled.div`
